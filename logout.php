@@ -75,7 +75,11 @@ else {
 
 */
 }
-echo "<meta http-equiv='refresh' content='0; url=http://192.168.0.233/gayeon_index.html'>";
+
+else {
+  echo "<script> alert('아이디 혹은 비밀번호를 확인하세요!');</script>";
+}
+//echo "<meta http-equiv='refresh' content='0; url=http://192.168.0.233/gayeon_index.html'>";
 mysqli_close($conn);
 
 
