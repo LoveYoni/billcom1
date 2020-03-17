@@ -27,6 +27,7 @@ $sql_logout = "SELECT * FROM bill_student WHERE bill_name = '$g_name' and bill_p
 $result_logout = mysqli_query($conn, $sql_logout);
 $result_logout = mysqli_num_rows($result_logout);
 
+/*
 if($result_logout) {
   echo "<script> alert("임가연 OK!");</script>";
       /*  $_SESSION['login_user']=$g_name;
@@ -57,14 +58,14 @@ if($result_logout) {
             }
           } else echo "<script> alert("No Update!!");</script>";
         }
-*/
+
         unset($_SESSION['login_user']);
         session_destroy();
 
         echo "<meta http-equiv='refresh' content='0; url=http://192.168.0.233/gayeon_index.html'>";
 
         exit();
-      
+
 }
 
 
@@ -74,6 +75,8 @@ else {
     echo "<meta http-equiv='refresh' content='0; url=login.html'>";
 }
 
+*/
+echo "<meta http-equiv='refresh' content='0; url=http://192.168.0.233/gayeon_index.html'>";
 mysqli_close($conn);
 
 
