@@ -23,7 +23,7 @@ $start_date_time = mktime(date("H")+9, date("i"), date("s"), date("m"), date("d"
 $now_date = date("Y-m-d", $start_date_time);
 $now_time = date("H:i:s", $start_date_time);
 
-$$sql_login = "SELECT * FROM bill_student WHERE bill_name = '$g_name' and bill_pw = '$g_pw'";
+$sql_login = "SELECT * FROM bill_student WHERE bill_name = '$g_name' and bill_pw = '$g_pw'";
 $result_login = mysqli_query($conn, $sql_login);
 $result_login = mysqli_num_rows($result_login);
 
@@ -37,7 +37,6 @@ if($result_login) {
             echo "<script> alert('Logout same Date!!');</script>";
             echo "<meta http-equiv='refresh' content='0; url=http://192.168.0.233/gayeon_index2.html'>";
           }
-
 
         else {
 
