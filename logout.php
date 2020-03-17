@@ -33,7 +33,8 @@ if($result_logout) {
         $result_select = mysqli_query($conn, $sql_select);
 
         if($result_select) {
-          $sql_update = "UPDATE student_study SET end_time = '$now_time' WHERE s_name = '$user'";
+          echo "<script> alert("student_study 일치 데이터 있음!!");</script>";
+      /*    $sql_update = "UPDATE student_study SET end_time = '$now_time' WHERE s_name = '$user'";
           $result_update = mysqli_query($conn, $sql_update);
 
           if($result_update) { //업데이트 성공 시 study_time 반환
@@ -53,17 +54,17 @@ if($result_logout) {
             if($resulttime) {
               echo "<script> alert('".(int)$study_Hour."시 ".(int)$study_Minute."분 ".(int)$study_Second."초 경과하였습니다.');</script>";
             }
-          }
+          } else echo "<script> alert("No Update!!");</script>";
         }
-
+*/
         unset($_SESSION['login_user']);
         session_destroy();
 
         echo "<meta http-equiv='refresh' content='0; url=http://192.168.0.233/gayeon_index.html'>";
 
         exit();
+      }
 }
-
 
 
 
