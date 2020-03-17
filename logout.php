@@ -23,48 +23,41 @@ $start_date_time = mktime(date("H")+9, date("i"), date("s"), date("m"), date("d"
 $now_date = date("Y-m-d", $start_date_time);
 $now_time = date("H:i:s", $start_date_time);
 
-$sql_logout = "SELECT * FROM bill_student WHERE bill_name = '$g_name' and bill_pw = '$g_pw'";
-$result_logout = mysqli_query($conn, $sql_logout);
+$$sql_login = "SELECT * FROM bill_student WHERE bill_name = '$g_name' and bill_pw = '$g_pw'";
+$result_login = mysqli_query($conn, $sql_login);
+$result_login = mysqli_num_rows($result_login);
 
-if($result_logout) {
-  echo "<script> alert("임가연 OK!");</script>";
-      /*  $_SESSION['login_user']=$g_name;
+if($result_login) {
+        $_SESSION['login_user']=$g_name;
         $sql_select = "SELECT * FROM student_study WHERE s_name = '$g_name' AND s_pw = '$g_pw' AND today_date = '$now_date'";
         $result_select = mysqli_query($conn, $sql_select);
+        $result_row = mysqli_num_rows($result_select);
 
-        if($result_select) {
-          echo "<script> alert("student_study 일치 데이터 있음!!");</script>";
-      /*    $sql_update = "UPDATE student_study SET end_time = '$now_time' WHERE s_name = '$user'";
-          $result_update = mysqli_query($conn, $sql_update);
+        if($result_row) { //해당 날짜에 중복 로그아웃의 경우
+            echo "<script> alert('Logout same Date!!');</script>";
+            echo "<meta http-equiv='refresh' content='0; url=http://192.168.0.233/gayeon_index2.html'>";
+          }
 
-          if($result_update) { //업데이트 성공 시 study_time 반환
-            while($row = mysqli_fetch_assoc($result_select)) {
-              $study_time = (strtotime($row['end_time']) - strtotime($row['start_time']));
-              $study_Hour = $study_time / 3600;
-              $study_Minute = $study_time / 60;
-              $study_Second = $study_time % 60;
 
-              $time = mktime($study_Hour, $study_Minute, $study_Second, date("m"), date("d"), date("Y"));
-              $timestamp = date("Y-m-d H:i:s", $time);
-            }
+        else {
 
-            $sqltime = "UPDATE student_study SET study_time = '$timestamp' WHERE s_name = '$user'";
-            $resulttime = mysqli_query($conn, $sqltime);
+          $sql_insert = "INSERT INTO student_study (s_name, s_pw, today_date, start_time, end_time, study_time) VALUES ('$g_name', '$g_pw', '$now_date', '$now_time', NULL, NULL)";
+          $result_insert = mysqli_query($conn, $sql_insert);
 
-            if($resulttime) {
-              echo "<script> alert('".(int)$study_Hour."시 ".(int)$study_Minute."분 ".(int)$study_Second."초 경과하였습니다.');</script>";
-            }
-          } else echo "<script> alert("No Update!!");</script>";
+          if($result_insert) {
+            //echo "<script> alert('insert Success!!');</script>";
+            echo "<meta http-equiv='refresh' content = '0; url=index2.html'>";
+          }
+
+          else {
+            echo "<script> alert('Fail!!');</script>";
+          }
+        //  if(mysqli_query($conn, $sql_insert))  {
+        //    echo "<meta http-equiv='refresh' content='0; url=index.html'>";
+        //  }
         }
+      }
 
-        unset($_SESSION['login_user']);
-        session_destroy();
-
-        echo "<meta http-equiv='refresh' content='0; url=http://192.168.0.233/gayeon_index.html'>";
-
-        exit();
-
-}
 
 
 
@@ -73,12 +66,6 @@ else {
     echo "<meta http-equiv='refresh' content='0; url=login.html'>";
 }
 
-*/
-}
-
-else {
-  echo "<script> alert('아이디 혹은 비밀번호를 확인하세요!');</script>";
-}
 //echo "<meta http-equiv='refresh' content='0; url=http://192.168.0.233/gayeon_index.html'>";
 mysqli_close($conn);
 
