@@ -28,7 +28,8 @@ $result_logout = mysqli_query($conn, $sql_logout);
 $result_logout = mysqli_num_rows($result_logout);
 
 if($result_logout) {
-        $_SESSION['login_user']=$g_name;
+  echo "<script> alert("임가연 OK!");</script>";
+      /*  $_SESSION['login_user']=$g_name;
         $sql_select = "SELECT * FROM student_study WHERE s_name = '$g_name' AND s_pw = '$g_pw' AND today_date = '$now_date'";
         $result_select = mysqli_query($conn, $sql_select);
 
@@ -63,7 +64,7 @@ if($result_logout) {
         echo "<meta http-equiv='refresh' content='0; url=http://192.168.0.233/gayeon_index.html'>";
 
         exit();
-      }
+      
 }
 
 
