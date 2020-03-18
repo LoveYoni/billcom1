@@ -34,12 +34,28 @@ if($result_login) {
         $result_row = mysqli_num_rows($result_select);
 
         if($result_row) { //해당 날짜 로그아웃의 경우
-          $sql_update = "UPDATE student_study SET end_time = '$now_time' WHERE s_name = '$user'";
+          $sql_update = "UPDATE student_study SET end_time = '$now_time' WHERE s_name = '$g_name' AND today_date = '$now_date'";
           $result_update = mysqli_query($conn, $sql_update);
 
           if($result_update) {
             //업데이트 성공 시 수강시간 스크립트
             echo "<script> alert('Logout Success!!');</script>";
+
+            while($row = mysqli_fetch_assoc($result_select)) {
+              $study_time = (strtotime($row['end_time'])-strtotime($row['start_time']));
+              $study_Hour = $study_time / 3600;
+              $study_Minute = $study_time / 60;
+              $study_Second = $study_time % 60;
+
+              $time = mktime($study_Hour, $study_Minute, $study_Second, date("m"), date("d"), date("Y"));
+              $timestamp = date("Y-m-d H:i:s", $time);
+
+            }
+
+            $sqltime = "UPDATE student_study SET study_time = '$timestamp' WHERE s_name = '$g_name' AND today_date = '$now_date'";
+            $resulttime = mysqli_query($conn, $sqltime);
+
+            echo "<script> alert('".(int)$study_Hour."시 ".(int)$study_Minute."분 ".$study_Second."초 경과하였습니다.');</script>";
 
             unset($_SESSION['login_user']);
             session_destroy();
