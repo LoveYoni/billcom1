@@ -33,36 +33,30 @@ if($result_login) {
         $result_select = mysqli_query($conn, $sql_select);
         $result_row = mysqli_num_rows($result_select);
 
-        if($result_row) { //해당 날짜에 중복 로그아웃의 경우
-            echo "<script> alert('Logout same Date!!');</script>";
-            echo "<meta http-equiv='refresh' content='0; url=http://192.168.0.233/gayeon_index2.html'>";
+        if($result_row) { //해당 날짜 로그아웃의 경우
+          $sql_update = "UPDATE student_study SET end_time = '$now_time' WHERE s_name = '$user'";
+          $result_update = mysqli_query($conn, $sql_update);
+
+          if($result_update) {
+            //업데이트 성공 시 수강시간 스크립트
+            echo "<script> alert('Logout Success!!');</script>";
+
+            unset($_SESSION['login_user']);
+            session_destroy();
+
+             echo "<meta http-equiv='refresh' content='0; url=http://192.168.0.233/gayeon_index.html'>";
+
+            exit();
           }
-
-        else {
-
-          $sql_insert = "INSERT INTO student_study (s_name, s_pw, today_date, start_time, end_time, study_time) VALUES ('$g_name', '$g_pw', '$now_date', '$now_time', NULL, NULL)";
-          $result_insert = mysqli_query($conn, $sql_insert);
-
-          if($result_insert) {
-            //echo "<script> alert('insert Success!!');</script>";
-            echo "<meta http-equiv='refresh' content = '0; url=index2.html'>";
-          }
-
-          else {
-            echo "<script> alert('Fail!!');</script>";
-          }
-        //  if(mysqli_query($conn, $sql_insert))  {
-        //    echo "<meta http-equiv='refresh' content='0; url=index.html'>";
-        //  }
         }
+
+
       }
-
-
 
 
 else {
     echo "<script> alert('아이디 혹은 비밀번호를 확인하세요!');</script>";
-    echo "<meta http-equiv='refresh' content='0; url=login.html'>";
+    echo "<meta http-equiv='refresh' content='0; url=http://192.168.0.66/logout.html'>";
 }
 
 //echo "<meta http-equiv='refresh' content='0; url=http://192.168.0.233/gayeon_index.html'>";
